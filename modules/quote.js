@@ -30,7 +30,7 @@ exports.execute = (req, res) => {
                         author_link: oauthObj.instance_url + "/" + quote.CreatedBy.Id,
                         title: quote.Name,
                         title_link: oauthObj.instance_url + "/" + quote.Id,
-                        color: "#36a64f",
+                        color: "#1798c1",
                         fields: fields
                     });
                 });

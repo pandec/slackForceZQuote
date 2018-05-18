@@ -5,7 +5,7 @@ SlackForceZQuote is a fork of a project described below (with a few edits + refe
 
 Oryginally developed by [Christophe Coenraets](http://coenraets.org/) (ccoenraets@gmail.com) and published under ISC licence - so big credits to Christophe for doing 95+% of the work!
 
-## Slackforce
+## Source Project: Slackforce
 Original repository: [link](https://github.com/ccoenraets/slackforce)
 
 A simple Node.js application that acts as a Slash Command message broker between Slack and Salesforce.

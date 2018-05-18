@@ -31,7 +31,7 @@ exports.execute = (req, res) => {
                         author_link: oauthObj.instance_url + "/" + contact.CreatedBy.Id,
                         title: contact.Name,
                         title_link: oauthObj.instance_url + "/" + contact.Id,
-                        color: "#A094ED",
+                        color: "#FF9D00",
                         fields: fields
                     });
                 });
