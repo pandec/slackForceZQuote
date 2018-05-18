@@ -53,7 +53,7 @@ If you haven't already done so, follow the steps below to create a Salesforce co
 
 #### Step 3: Create the Slash Commands in Slack
 
-1. In a browser, go to the custom integration page for your Slack team. For example ```https://YOUR_TEAM_NAME.slack.com/apps/manage/custom-integration```. Replace ```YOUR_TEAM_NAME``` with your actual team name.
+1. In a browser, go to the custom integration page for your Slack team. For example ```https://YOUR_TEAM_NAME.slack.com/apps/manage/custom-integrations```. Replace ```YOUR_TEAM_NAME``` with your actual team name.
 
 1. Click **Slash Commands**, and click **Add Configuration**
 
