@@ -6,7 +6,7 @@ let auth = require("./slack-salesforce-auth"),
 
 exports.execute = (req, res) => {
 
-    //res.status(200).end();
+    res.status(200);
     var actionJSONPayload = JSON.parse(req.body.payload);
     console.log('bdec // req.body.payload: ' + JSON.stringify(actionJSONPayload));
 
@@ -41,8 +41,10 @@ exports.execute = (req, res) => {
         })
         .catch(error => {
             if (error.code == 401) {
+                res.status(401);
                 res.send(`Visit this URL to login to Salesforce: https://${req.hostname}/login/` + slackUserId);
             } else {
+                res.status(500);
                 res.send("An error as occurred");
             }
         });
