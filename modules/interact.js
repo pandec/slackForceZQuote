@@ -24,7 +24,7 @@ exports.execute = (req, res) => {
     var isApprover;
 
     let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + quoteId;
-    let pathProcess = 'Quote/CheckUserForApproval&recordId=' + quoteId + 'step=';
+    let pathProcess = 'Quote/Approve?recordId=' + quoteId + '&step=';
 
     force.apexrest(oauthObj, path, {})
         .then(data => {
