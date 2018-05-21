@@ -35,16 +35,10 @@ exports.execute = (req, res) => {
             console.log('bdec // data: ' + data);
             if ((data === 'true')) {
                 console.log('bdec // -- true --');
-                //res.json({
-                //    text: "Response: You can approve/reject this record",
-                //    replace_original: "true"
-                //});
+                approveQuote(quoteId);
             } else {
                 console.log('bdec // -- false --');
-                //res.json({
-                //    text: "Response: You can't approve/reject this record. If you think you should be able to approve it, please see the Quote in Salesforce.",
-                //    replace_original: "true"
-                //});
+                rejectQuote(quoteId);
             }
         })
         .catch(error => {
@@ -68,6 +62,26 @@ exports.execute = (req, res) => {
     } else {
         console.log('bdec // able to approve/reject : ' + isApprover);
         console.log('bdec // step type: ' + responseName);
+        res.json({
+            text: "Response: You can't approve/reject this record. If you think you should be able to approve it, please see the Quote in Salesforce.",
+            replace_original: "true"
+        });
+    }
+
+    function approveQuote(quoteId) {
+        console.log('bdec // able to approve/reject : ' + true);
+        console.log('bdec // step type: approve');
+        console.log('bdec // quoteId: ' + quoteId);
+        res.json({
+            text: "Response: You can approve/reject this record",
+            replace_original: "true"
+        });
+    }
+
+    function rejectQuote(quoteId) {
+        console.log('bdec // able to approve/reject : ' + false);
+        console.log('bdec // step type: reject');
+        console.log('bdec // quoteId: ' + quoteId);
         res.json({
             text: "Response: You can't approve/reject this record. If you think you should be able to approve it, please see the Quote in Salesforce.",
             replace_original: "true"
