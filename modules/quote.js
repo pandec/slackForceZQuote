@@ -45,20 +45,13 @@ exports.execute = (req, res) => {
                                 "name": "yes",
                                 "text": "yes",
                                 "type": "button",
-                                "value": "yes"
+                                "value": quote.Id
                             },
                             {
                                 "name": "no",
                                 "text": "no",
                                 "type": "button",
-                                "value": "no"
-                            },
-                            {
-                                "name": "maybe",
-                                "text": "maybe",
-                                "type": "button",
-                                "value": "maybe",
-                                "style": "danger"
+                                "value": quote.Id
                             }
                         ]
                     });
