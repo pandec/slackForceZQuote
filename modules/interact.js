@@ -15,7 +15,7 @@ exports.execute = (req, res) => {
         return;
     }
 
-    let slackUserId = req.body.payload.user.id,
+    let slackUserId = actionJSONPayload.user.id,
         oauthObj = auth.getOAuthObject(slackUserId);
 
     let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + actionJSONPayload.text;
