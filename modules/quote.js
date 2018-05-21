@@ -24,6 +24,8 @@ exports.execute = (req, res) => {
     //    'recordId' : '"' + req.body.text + '"'
     //};
 
+    console.log('bdec // oauthObj: ' + oauthObj)
+
     force.apexrest(oauthObj, path, {})
         .then(data => {
             console.log('bdec // data: ' + data);
