@@ -20,9 +20,6 @@ exports.execute = (req, res) => {
 
     var responseName = actionJSONPayload.actions[0].name;
     var quoteId = actionJSONPayload.actions[0].value;
-    console.log('bdec // responseName: ' + responseName);
-    console.log('bdec // quoteId: ' + quoteId);
-    console.log('bdec // slackUserId: ' + slackUserId);
 
     let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + quoteId;
 
@@ -31,12 +28,13 @@ exports.execute = (req, res) => {
             console.log('bdec // data: ' + data);
             if ((data === 'true')) {
                 console.log('bdec // -- true --');
-                res.json({text: "Response: '" + data + "':", replace_original: "true"});
-                //res.send('true');
+                res.json({text: "Response: You can approve this record", replace_original: "true"});
             } else {
                 console.log('bdec // -- false --');
-                //res.send('false');
-                res.json({text: "Response: '" + data + "':", replace_original: "true"});
+                res.json({
+                    text: "Response: You can't approve this record. If you think you should be able to approve it, please see the Quote in Salesforce.",
+                    replace_original: "true"
+                });
             }
         })
         .catch(error => {
