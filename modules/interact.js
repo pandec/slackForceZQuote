@@ -6,7 +6,7 @@ let auth = require("./slack-salesforce-auth"),
 
 exports.execute = (req, res) => {
 
-    res.status(200).end()
+    //res.status(200).end();
     var actionJSONPayload = JSON.parse(req.body.payload);
     console.log('bdec // req.body.payload: ' + JSON.stringify(actionJSONPayload));
 
