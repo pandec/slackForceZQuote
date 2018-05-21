@@ -46,14 +46,15 @@ let sfrequest = (oauth, path, options) => new Promise((resolve, reject) => {
         }
     });
 
-}).catch(error => {
+});
+   /* .catch(error => {
     console.log('bdec // 4, error: ' + JSON.stringify(error));
     if (error.code == 401) {
         res.send(`Visit this URL to login to Salesforce: https://${req.hostname}/login/` + slackUserId);
     } else {
         res.send("An error as occurred");
     }
-});
+});*/
 
 /**
  * Convenience function to execute a SOQL query
