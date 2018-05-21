@@ -21,7 +21,7 @@ exports.execute = (req, res) => {
     var responseName = actionJSONPayload.actions[0].name;
     var quoteId = actionJSONPayload.actions[0].value;
 
-    let isApprover = false;
+    var isApprover;
 
     let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + quoteId;
     let pathApprove = 'Quote/CheckUserForApproval&recordId=' + quoteId + 'step=approve';
