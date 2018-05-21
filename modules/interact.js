@@ -65,6 +65,15 @@ exports.execute = (req, res) => {
             .then(data => {
                 console.log('bdec // data: ' + data)
                 console.log('bdec // data: ' + JSON.stringify(data));
+                if ((data === 'true')) {
+                    res.json({
+                        text: "Ok"
+                    });
+                } else {
+                    res.json({
+                        text: "Error"
+                    });
+                }
             })
             .catch(error => {
                 if (error.code == 401) {
@@ -75,18 +84,12 @@ exports.execute = (req, res) => {
                     res.send("An error as occurred");
                 }
             });
-
-
-        res.json({
-            text: "Response"
-        });
     }
 
     function rejectQuote(quoteId) {
         console.log('bdec // able to approve/reject : ' + false);
         console.log('bdec // step type: reject');
         console.log('bdec // quoteId: ' + quoteId);
-
 
         res.json({
             text: "Response: You can't approve/reject this record. If you think you should be able to approve it, please see the Quote in Salesforce.",
