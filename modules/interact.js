@@ -73,11 +73,13 @@ exports.execute = (req, res) => {
                         textResponse = 'Ok - record rejected';
                     }
                     res.json({
-                        text: textResponse
+                        text: textResponse,
+                        replace_original: false
                     });
                 } else {
                     res.json({
-                        text: "Error"
+                        text: "Error",
+                        replace_original: false
                     });
                 }
             })
