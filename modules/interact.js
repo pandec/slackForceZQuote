@@ -18,7 +18,13 @@ exports.execute = (req, res) => {
     let slackUserId = actionJSONPayload.user.id,
         oauthObj = auth.getOAuthObject(slackUserId);
 
-    let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + actionJSONPayload.text;
+    var responseName = actionJSONPayload.actions.get(0).name;
+    var quoteId = actionJSONPayload.actions.get(0).value;
+    console.log('bdec // responseName: ' + responseName);
+    console.log('bdec // quoteId: ' + quoteId);
+    console.log('bdec // slackUserId: ' + slackUserId);
+
+    let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + quoteId;
 
     force.apexrest(oauthObj, path, {})
         .then(data => {
