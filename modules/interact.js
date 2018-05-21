@@ -52,21 +52,21 @@ exports.execute = (req, res) => {
         });
 
 
-    if (isApprover === true) {
-        console.log('bdec // able to approve/reject : ' + isApprover);
-        console.log('bdec // step type: ' + responseName);
-        res.json({
-            text: "Response: You can approve/reject this record",
-            replace_original: "true"
-        });
-    } else {
-        console.log('bdec // able to approve/reject : ' + isApprover);
-        console.log('bdec // step type: ' + responseName);
-        res.json({
-            text: "Response: You can't approve/reject this record. If you think you should be able to approve it, please see the Quote in Salesforce.",
-            replace_original: "true"
-        });
-    }
+    // if (isApprover === true) {
+    //     console.log('bdec // able to approve/reject : ' + isApprover);
+    //     console.log('bdec // step type: ' + responseName);
+    //     res.json({
+    //         text: "Response: You can approve/reject this record",
+    //         replace_original: "true"
+    //     });
+    // } else {
+    //     console.log('bdec // able to approve/reject : ' + isApprover);
+    //     console.log('bdec // step type: ' + responseName);
+    //     res.json({
+    //         text: "Response: You can't approve/reject this record. If you think you should be able to approve it, please see the Quote in Salesforce.",
+    //         replace_original: "true"
+    //     });
+    // }
 
     function approveQuote(quoteId) {
         console.log('bdec // able to approve/reject : ' + true);
