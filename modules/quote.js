@@ -25,7 +25,11 @@ exports.execute = (req, res) => {
     force.apexrest(oauthObj, path, {})
         .then(data => {
             console.log('bdec // data: ' + data);
-            console.log('bdec // JSON.parse(data): ' + JSON.stringify(data, null, 4));
+            if(data){
+                console.log('bdec // -- true --');
+            } else {
+                console.log('bdec // -- false --');
+            }
         })
         .catch(error => {
             if (error.code == 401) {
