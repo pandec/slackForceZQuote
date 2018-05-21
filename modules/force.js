@@ -156,7 +156,7 @@ let apexrest = (oauth, path, params) => {
     }
 
     console.log('bdec // path: ' + path);
-    console.log('bdec // oauthObj: ' + oauthObj);
+    console.log('bdec // oauthObj: ' + JSON.parse(oauth));
 
     return sfrequest(oauth, path, params);
 };
