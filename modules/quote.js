@@ -9,15 +9,14 @@ exports.execute = (req, res) => {
 
     console.log('bdec // token: ' + req.body.token);
 
-    if (req.body.token != QUOTE_TOKEN && req.body. != APP_TOKEN) {
+    if (req.body.token != QUOTE_TOKEN && req.body.token != APP_TOKEN) {
         console.log("Invalid token");
         res.send("Invalid token");
         return;
     }
 
     let slackUserId = req.body.user_id,
-        oauthObj = auth.getOAuthObject(slackUserId),
-        q = "SELECT Id, Name, zqu__Number__c, zqu__Status__c, CreatedBy.Name, CreatedBy.Id FROM zqu__Quote__c WHERE Name LIKE '%" + req.body.text + "%' OR zqu__Number__c LIKE '%" + req.body.text + "%' LIMIT 5";
+        oauthObj = auth.getOAuthObject(slackUserId);
 
     let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + req.body.text;
     //let params = {
