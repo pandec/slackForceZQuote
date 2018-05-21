@@ -10,16 +10,12 @@ let getUserId = (oauth) => (typeof(oauth) !== 'undefined') ? oauth.id.split('/')
  */
 let sfrequest = (oauth, path, options) => new Promise((resolve, reject) => {
 
-    console.log('bdec // 0, oauth: ' + oauth);
-
     if (!oauth || (!oauth.access_token && !oauth.refresh_token)) {
         reject({code: 401});
         return;
     }
 
     options = options || {};
-
-    console.log('bdec // 1, options: ' + options);
 
     options.method = options.method || 'GET';
 
@@ -34,8 +30,6 @@ let sfrequest = (oauth, path, options) => new Promise((resolve, reject) => {
 
     options.headers["Accept"]= "application/json";
     options.headers["Authorization"] = "Bearer " + oauth.access_token;
-
-    console.log('bdec // 2, options: ' + options);
 
     request(options, function (error, response, body) {
         if (error) {
@@ -154,9 +148,6 @@ let apexrest = (oauth, path, params) => {
     if (path.substr(0, 18) !== "/services/apexrest") {
         path = "/services/apexrest" + path;
     }
-
-    console.log('bdec // path: ' + path);
-    console.log('bdec // oauthObj: ' + JSON.stringify(oauth));
 
     return sfrequest(oauth, path, params);
 };

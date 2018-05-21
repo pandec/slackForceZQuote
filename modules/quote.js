@@ -12,8 +12,6 @@ exports.execute = (req, res) => {
         return;
     }
 
-    console.log("bdec // console.log() test");
-
     let slackUserId = req.body.user_id,
         oauthObj = auth.getOAuthObject(slackUserId),
         q = "SELECT Id, Name, zqu__Number__c, zqu__Status__c, CreatedBy.Name, CreatedBy.Id FROM zqu__Quote__c WHERE Name LIKE '%" + req.body.text + "%' OR zqu__Number__c LIKE '%" + req.body.text + "%' LIMIT 5";
@@ -24,12 +22,10 @@ exports.execute = (req, res) => {
     //    'recordId' : '"' + req.body.text + '"'
     //};
 
-    //console.log('bdec // oauthObj: ' + oauthObj)
-
     force.apexrest(oauthObj, path, {})
         .then(data => {
             console.log('bdec // data: ' + data);
-            console.log('bdec // JSON.parse(data): ' + JSON.parse(data));
+            console.log('bdec // JSON.parse(data): ' + JSON.stringify(data, null, 4));
         })
         .catch(error => {
             if (error.code == 401) {
