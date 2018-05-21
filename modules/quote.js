@@ -42,14 +42,14 @@ exports.execute = (req, res) => {
                         callback_id:"button_tutorial",
                         actions: [
                             {
-                                "name": "yes",
-                                "text": "yes",
+                                "name": "approve",
+                                "text": "Approve",
                                 "type": "button",
                                 "value": quote.Id
                             },
                             {
-                                "name": "no",
-                                "text": "no",
+                                "name": "reject",
+                                "text": "Reject",
                                 "type": "button",
                                 "value": quote.Id
                             }
