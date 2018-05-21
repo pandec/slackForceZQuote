@@ -6,17 +6,17 @@ let auth = require("./slack-salesforce-auth"),
 
 exports.execute = (req, res) => {
 
-    console.log('bdec // req.body: ' + JSON.stringify(req.body));
+    console.log('bdec // req.body.payload: ' + JSON.stringify(req.body.payload));
 
-    if (req.body.token != APP_TOKEN) {
+    if (req.body.payload.token != APP_TOKEN) {
         res.send("Invalid token");
         return;
     }
 
-    let slackUserId = req.body.user_id,
+    let slackUserId = req.body.payload.user_id,
         oauthObj = auth.getOAuthObject(slackUserId);
 
-    let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + req.body.text;
+    let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + req.body.payload.text;
 
     force.apexrest(oauthObj, path, {})
         .then(data => {
