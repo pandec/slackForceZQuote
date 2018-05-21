@@ -6,6 +6,7 @@ let express = require('express'),
     account = require('./modules/account'),
     contact = require('./modules/contact'),
     quote = require('./modules/quote'),
+    interact = require('./modules/interact'),
     actions = require('./modules/actions'),
     app = express();
 
@@ -18,6 +19,7 @@ let express = require('express'),
     app.post('/account', account.execute);
     app.post('/contact', contact.execute);
     app.post('/quote', quote.execute);
+    app.post('/interact', interact.execute);
     app.post('/login', auth.loginLink);
     app.post('/logout', auth.logout);
     app.get('/login/:slackUserId', auth.oauthLogin);
