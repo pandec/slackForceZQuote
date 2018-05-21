@@ -45,6 +45,13 @@ let sfrequest = (oauth, path, options) => new Promise((resolve, reject) => {
         }
     });
 
+}).catch(error => {
+    console.log('bdec // error: ' + error);
+    if (error.code == 401) {
+        res.send(`Visit this URL to login to Salesforce: https://${req.hostname}/login/` + slackUserId);
+    } else {
+        res.send("An error as occurred");
+    }
 });
 
 /**
@@ -140,6 +147,8 @@ let apexrest = (oauth, path, params) => {
     if (path.substr(0, 18) !== "/services/apexrest") {
         path = "/services/apexrest" + path;
     }
+
+    console.log('bdec // path: ' + path);
 
     return sfrequest(oauth, path, params);
 };
