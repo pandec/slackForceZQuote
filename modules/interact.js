@@ -63,11 +63,17 @@ exports.execute = (req, res) => {
 
         force.apexrest(oauthObj, pathProcess, options)
             .then(data => {
-                console.log('bdec // data: ' + data)
+                console.log('bdec // data: ' + data);
                 console.log('bdec // data: ' + JSON.stringify(data));
                 if ((data === 'true')) {
+                    var textResponse;
+                    if (pathProcess.includes('approve')) {
+                        textResponse = 'Ok - record approved';
+                    } else {
+                        textResponse = 'Ok - record rejected';
+                    }
                     res.json({
-                        text: "Ok"
+                        text: textResponse
                     });
                 } else {
                     res.json({
@@ -84,16 +90,5 @@ exports.execute = (req, res) => {
                     res.send("An error as occurred");
                 }
             });
-    }
-
-    function rejectQuote(quoteId) {
-        console.log('bdec // able to approve/reject : ' + false);
-        console.log('bdec // step type: reject');
-        console.log('bdec // quoteId: ' + quoteId);
-
-        res.json({
-            text: "Response: You can't approve/reject this record. If you think you should be able to approve it, please see the Quote in Salesforce.",
-            replace_original: "true"
-        });
     }
 };
