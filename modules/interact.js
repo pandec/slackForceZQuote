@@ -23,10 +23,12 @@ exports.execute = (req, res) => {
             console.log('bdec // data: ' + data);
             if ((data === 'true')) {
                 console.log('bdec // -- true --');
-                res.send('true');
+                res.json({text: "Response: '" + data + "':", replace_original: "true"});
+                //res.send('true');
             } else {
                 console.log('bdec // -- false --');
-                res.send('false');
+                //res.send('false');
+                res.json({text: "Response: '" + data + "':", replace_original: "true"});
             }
         })
         .catch(error => {

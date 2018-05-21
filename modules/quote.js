@@ -39,6 +39,7 @@ exports.execute = (req, res) => {
                         title_link: oauthObj.instance_url + "/" + quote.Id,
                         color: "#1798c1",
                         fields: fields,
+                        callback_id:"button_tutorial",
                         actions: [
                             {
                                 "name": "yes",
