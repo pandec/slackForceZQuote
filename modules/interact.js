@@ -18,8 +18,8 @@ exports.execute = (req, res) => {
     let slackUserId = actionJSONPayload.user.id,
         oauthObj = auth.getOAuthObject(slackUserId);
 
-    var responseName = actionJSONPayload.actions.get(0).name;
-    var quoteId = actionJSONPayload.actions.get(0).value;
+    var responseName = actionJSONPayload.actions[0].name;
+    var quoteId = actionJSONPayload.actions[0].value;
     console.log('bdec // responseName: ' + responseName);
     console.log('bdec // quoteId: ' + quoteId);
     console.log('bdec // slackUserId: ' + slackUserId);
