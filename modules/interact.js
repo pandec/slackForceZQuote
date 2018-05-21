@@ -21,18 +21,28 @@ exports.execute = (req, res) => {
     var responseName = actionJSONPayload.actions[0].name;
     var quoteId = actionJSONPayload.actions[0].value;
 
+    let isApprover = false;
+
     let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + quoteId;
+    let pathApprove = 'Quote/CheckUserForApproval&recordId=' + quoteId + 'step=approve';
+    let pathReject = 'Quote/CheckUserForApproval&recordId=' + quoteId + 'step=reject';
 
     force.apexrest(oauthObj, path, {})
         .then(data => {
+
+            isApprover = (data === 'true');
+
             console.log('bdec // data: ' + data);
             if ((data === 'true')) {
                 console.log('bdec // -- true --');
-                res.json({text: "Response: You can approve this record", replace_original: "true"});
+                res.json({
+                    text: "Response: You can approve/reject this record",
+                    replace_original: "true"
+                });
             } else {
                 console.log('bdec // -- false --');
                 res.json({
-                    text: "Response: You can't approve this record. If you think you should be able to approve it, please see the Quote in Salesforce.",
+                    text: "Response: You can't approve/reject this record. If you think you should be able to approve it, please see the Quote in Salesforce.",
                     replace_original: "true"
                 });
             }
@@ -46,4 +56,13 @@ exports.execute = (req, res) => {
                 res.send("An error as occurred");
             }
         });
+
+
+    if (isApprover === 'true') {
+        console.log('bdec // able to approve/reject : ' + isApprover);
+        console.log('bdec // step type: ' + responseName);
+    } else {
+        console.log('bdec // able to approve/reject : ' + isApprover);
+        console.log('bdec // step type: ' + responseName);
+    }
 };
