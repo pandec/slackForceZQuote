@@ -35,16 +35,16 @@ exports.execute = (req, res) => {
             console.log('bdec // data: ' + data);
             if ((data === 'true')) {
                 console.log('bdec // -- true --');
-                res.json({
-                    text: "Response: You can approve/reject this record",
-                    replace_original: "true"
-                });
+                //res.json({
+                //    text: "Response: You can approve/reject this record",
+                //    replace_original: "true"
+                //});
             } else {
                 console.log('bdec // -- false --');
-                res.json({
-                    text: "Response: You can't approve/reject this record. If you think you should be able to approve it, please see the Quote in Salesforce.",
-                    replace_original: "true"
-                });
+                //res.json({
+                //    text: "Response: You can't approve/reject this record. If you think you should be able to approve it, please see the Quote in Salesforce.",
+                //    replace_original: "true"
+                //});
             }
         })
         .catch(error => {
@@ -58,11 +58,19 @@ exports.execute = (req, res) => {
         });
 
 
-    if (isApprover === 'true') {
+    if (isApprover === true) {
         console.log('bdec // able to approve/reject : ' + isApprover);
         console.log('bdec // step type: ' + responseName);
+        res.json({
+            text: "Response: You can approve/reject this record",
+            replace_original: "true"
+        });
     } else {
         console.log('bdec // able to approve/reject : ' + isApprover);
         console.log('bdec // step type: ' + responseName);
+        res.json({
+            text: "Response: You can't approve/reject this record. If you think you should be able to approve it, please see the Quote in Salesforce.",
+            replace_original: "true"
+        });
     }
 };
