@@ -18,7 +18,7 @@ exports.execute = (req, res) => {
         oauthObj = auth.getOAuthObject(slackUserId),
         q = "SELECT Id, Name, zqu__Number__c, zqu__Status__c, CreatedBy.Name, CreatedBy.Id FROM zqu__Quote__c WHERE Name LIKE '%" + req.body.text + "%' OR zqu__Number__c LIKE '%" + req.body.text + "%' LIMIT 5";
 
-    let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + req.body.text;
+    //let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + req.body.text;
     //let params = {
     //    'slackUserId' : '"' + slackUserId + '"',
     //    'recordId' : '"' + req.body.text + '"'
@@ -26,6 +26,7 @@ exports.execute = (req, res) => {
 
     console.log('bdec // oauthObj: ' + oauthObj)
 
+    /*
     force.apexrest(oauthObj, path, {})
         .then(data => {
             console.log('bdec // data: ' + data);
@@ -37,7 +38,7 @@ exports.execute = (req, res) => {
             } else {
                 res.send("An error as occurred");
             }
-        });
+        });*/
 
     force.query(oauthObj, q)
         .then(data => {
