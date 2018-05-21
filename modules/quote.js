@@ -12,11 +12,23 @@ exports.execute = (req, res) => {
         return;
     }
 
-    console.log("console.log() test");
+    console.log("bdec // console.log() test");
 
     let slackUserId = req.body.user_id,
         oauthObj = auth.getOAuthObject(slackUserId),
         q = "SELECT Id, Name, zqu__Number__c, zqu__Status__c, CreatedBy.Name, CreatedBy.Id FROM zqu__Quote__c WHERE Name LIKE '%" + req.body.text + "%' OR zqu__Number__c LIKE '%" + req.body.text + "%' LIMIT 5";
+
+    let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + req.body.text;
+    //let params = {
+    //    'slackUserId' : '"' + slackUserId + '"',
+    //    'recordId' : '"' + req.body.text + '"'
+    //};
+
+    force.apexrest(oauthObj, path)
+        .then(data => {
+            console.log(data);
+            console.log(JSON.parse(data));
+        }
 
     force.query(oauthObj, q)
         .then(data => {
@@ -25,8 +37,8 @@ exports.execute = (req, res) => {
                 let attachments = [];
                 quotess.forEach(function (quote) {
                     let fields = [];
-                    fields.push({title: "Number", value: quote.zqu__Number__c, short:true});
-                    fields.push({title: "Status", value: quote.zqu__Status__c, short:true});
+                    fields.push({title: "Number", value: quote.zqu__Number__c, short: true});
+                    fields.push({title: "Status", value: quote.zqu__Status__c, short: true});
                     attachments.push({
                         author_name: quote.CreatedBy.Name,
                         author_link: oauthObj.instance_url + "/" + quote.CreatedBy.Id,
