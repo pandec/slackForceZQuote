@@ -16,30 +16,8 @@ exports.execute = (req, res) => {
     }
 
     let slackUserId = req.body.user_id,
-        oauthObj = auth.getOAuthObject(slackUserId);
-
-    let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + req.body.text;
-    //let params = {
-    //    'slackUserId' : '"' + slackUserId + '"',
-    //    'recordId' : '"' + req.body.text + '"'
-    //};
-
-    force.apexrest(oauthObj, path, {})
-        .then(data => {
-            console.log('bdec // data: ' + data);
-            if((data === 'true')){
-                console.log('bdec // -- true --');
-            } else {
-                console.log('bdec // -- false --');
-            }
-        })
-        .catch(error => {
-            if (error.code == 401) {
-                res.send(`Visit this URL to login to Salesforce: https://${req.hostname}/login/` + slackUserId);
-            } else {
-                res.send("An error as occurred");
-            }
-        });
+        oauthObj = auth.getOAuthObject(slackUserId),
+        q = "SELECT Id, Name, zqu__Number__c, zqu__Status__c, CreatedBy.Name, CreatedBy.Id FROM zqu__Quote__c WHERE Name LIKE '%" + req.body.text + "%' OR zqu__Number__c LIKE '%" + req.body.text + "%' LIMIT 5";
 
     force.query(oauthObj, q)
         .then(data => {
