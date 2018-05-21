@@ -8,6 +8,7 @@ let auth = require("./slack-salesforce-auth"),
 exports.execute = (req, res) => {
 
     console.log('bdec // token: ' + req.body.token);
+    console.log('bdec // req.body: ' + JSON.stringify(req.body));
 
     if (req.body.token != QUOTE_TOKEN && req.body.token != APP_TOKEN) {
         console.log("Invalid token");
