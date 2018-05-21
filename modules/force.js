@@ -17,6 +17,8 @@ let sfrequest = (oauth, path, options) => new Promise((resolve, reject) => {
 
     options = options || {};
 
+    console.log('bdec // 1, options: ' + options);
+
     options.method = options.method || 'GET';
 
     // dev friendly API: Add leading '/' if missing so url + path concat always works
@@ -31,8 +33,11 @@ let sfrequest = (oauth, path, options) => new Promise((resolve, reject) => {
     options.headers["Accept"]= "application/json";
     options.headers["Authorization"] = "Bearer " + oauth.access_token;
 
+    console.log('bdec // 2, options: ' + options);
+
     request(options, function (error, response, body) {
         if (error) {
+            console.log('bdec // 3, error: ' + JSON.stringify(error));
             console.log(error);
             if (response.statusCode === 401) {
                 // Could implement refresh token and retry logic here
@@ -46,7 +51,7 @@ let sfrequest = (oauth, path, options) => new Promise((resolve, reject) => {
     });
 
 }).catch(error => {
-    console.log('bdec // error: ' + error);
+    console.log('bdec // 4, error: ' + JSON.stringify(error));
     if (error.code == 401) {
         res.send(`Visit this URL to login to Salesforce: https://${req.hostname}/login/` + slackUserId);
     } else {
