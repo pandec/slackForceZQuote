@@ -25,7 +25,7 @@ exports.execute = (req, res) => {
     force.apexrest(oauthObj, path, {})
         .then(data => {
             console.log('bdec // data: ' + data);
-            if(data){
+            if((data === 'true')){
                 console.log('bdec // -- true --');
             } else {
                 console.log('bdec // -- false --');
