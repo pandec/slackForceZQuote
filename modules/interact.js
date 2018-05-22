@@ -56,15 +56,15 @@ exports.execute = (req, res) => {
                     if (approveResult.error === 'INSUFFICIENT_ACCESS') {
                         responsePayload.text = 'You are unable to approve/reject this quote. ' + recordLink;
                     } else {
-                        responsePayload.text += ' | Error code: ' + approveResult.error + ' ' + recordLink;
+                        responsePayload.text += ' | Error code: ' + approveResult.error;
                     }
                 } else {
                     var textResponse;
 
                     if (pathProcess.includes('approve')) {
-                        textResponse = 'Ok - record approved ' + recordLink;
+                        textResponse = 'Ok - record approved. ' + recordLink;
                     } else {
-                        textResponse = 'Ok - record rejected ' + recordLink;
+                        textResponse = 'Ok - record rejected. ' + recordLink;
                     }
                     responsePayload.text = textResponse;
                 }
