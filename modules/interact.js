@@ -21,12 +21,57 @@ exports.execute = (req, res) => {
     var responseName = actionJSONPayload.actions[0].name;
     var quoteId = actionJSONPayload.actions[0].value;
 
-    var isApprover;
-
-    let path = '/Quote/CheckUserForApproval?slackUserId=' + slackUserId + '&recordId=' + quoteId;
     let pathProcess = 'Quote/Approve?recordId=' + quoteId + '&step=';
 
-    force.apexrest(oauthObj, path, {})
+    if (responseName === 'approve') {
+        pathProcess += 'approve';
+    } else if (responseName === 'reject') {
+        pathProcess += 'reject';
+    }
+
+    approveRejectQuote(quoteId, pathProcess);
+
+    function approveRejectQuote(quoteId, pathProcess) {
+        console.log('bdec // pathProcess: ' + pathProcess);
+
+        var options = {};
+        options.method = 'POST';
+
+        force.apexrest(oauthObj, pathProcess, options)
+            .then(data => {
+                console.log('bdec // data: ' + data);
+                console.log('bdec // data: ' + JSON.stringify(data));
+
+                let original_message = actionJSONPayload.original_message;
+                original_message.actions = null;
+
+                var approveResult = JSON.parse(data);
+                console.log('bdec // approveResult: ' + approveResult);
+
+                if ((approveResult.success === 'true')) {
+                    res.json({
+                        text: original_message,
+                        replace_original: false
+                    });
+                } else {
+                    res.json({
+                        text: original_message,
+                        replace_original: false
+                    });
+                }
+            })
+            .catch(error => {
+                if (error.code == 401) {
+                    res.status(401);
+                    res.send(`Visit this URL to login to Salesforce: https://${req.hostname}/login/` + slackUserId);
+                } else {
+                    res.status(500);
+                    res.send("An error as occurred");
+                }
+            });
+    }
+
+    /*force.apexrest(oauthObj, path, {})
         .then(data => {
             console.log('bdec // data: ' + data);
             console.log('bdec // data.success: ' + data.success);
@@ -49,46 +94,5 @@ exports.execute = (req, res) => {
                 res.send("An error as occurred");
             }
         });
-
-    function approveRejectQuote(quoteId, pathProcess) {
-        console.log('bdec // step type: approve: ' + pathProcess.includes('approve'));
-        console.log('bdec // step type: reject: ' + pathProcess.includes('reject'));
-        console.log('bdec // quoteId: ' + quoteId);
-        console.log('bdec // pathProcess: ' + pathProcess);
-
-        var options = {};
-        options.method = 'POST';
-
-        force.apexrest(oauthObj, pathProcess, options)
-            .then(data => {
-                console.log('bdec // data: ' + data);
-                console.log('bdec // data: ' + JSON.stringify(data));
-                if ((data === 'true')) {
-                    var textResponse;
-                    if (pathProcess.includes('approve')) {
-                        textResponse = 'Ok - record approved';
-                    } else {
-                        textResponse = 'Ok - record rejected';
-                    }
-                    res.json({
-                        text: textResponse,
-                        replace_original: false
-                    });
-                } else {
-                    res.json({
-                        text: "Error",
-                        replace_original: false
-                    });
-                }
-            })
-            .catch(error => {
-                if (error.code == 401) {
-                    res.status(401);
-                    res.send(`Visit this URL to login to Salesforce: https://${req.hostname}/login/` + slackUserId);
-                } else {
-                    res.status(500);
-                    res.send("An error as occurred");
-                }
-            });
-    }
+     */
 };
