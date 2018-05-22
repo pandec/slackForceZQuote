@@ -39,9 +39,8 @@ exports.execute = (req, res) => {
 
         force.apexrest(oauthObj, pathProcess, options)
             .then(data => {
-                console.log('bdec // data: ' + JSON.stringify(data));
-
                 var approveResult = JSON.parse(data);
+                console.log('bdec // approveResult: ' + JSON.stringify(data));
                 console.log('bdec // approveResult: ' + approveResult);
 
                 console.log('bdec // (approveResult.success === \'true\'): ' + (approveResult.success === 'true'));
@@ -57,13 +56,13 @@ exports.execute = (req, res) => {
                     res.json({
                         text: textResponse,
                         color: "#1798c1",
-                        replace_original: false
+                        replace_original: true
                     });
                 } else {
                     res.json({
-                        text: "Error",
+                        text: "Error, " + approveResult.message,
                         color: "#1798c1",
-                        replace_original: false
+                        replace_original: true
                     });
                 }
 
