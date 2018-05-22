@@ -28,11 +28,9 @@ exports.execute = (req, res) => {
 
     force.apexrest(oauthObj, path, {})
         .then(data => {
-
-            isApprover = (data === 'true');
-
             console.log('bdec // data: ' + data);
-            if ((data === 'true')) {
+            console.log('bdec // data.success: ' + data.success);
+            if ((data.success === 'true')) {
                 console.log('bdec // -- true --');
                 pathProcess += 'approve';
                 approveRejectQuote(quoteId, pathProcess);
