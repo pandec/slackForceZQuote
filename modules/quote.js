@@ -18,7 +18,7 @@ exports.execute = (req, res) => {
 
     let slackUserId = req.body.user_id,
         oauthObj = auth.getOAuthObject(slackUserId),
-        q = "SELECT Id, Name, zqu__Number__c, zqu__Status__c, CreatedBy.Name, CreatedBy.Id FROM zqu__Quote__c WHERE Name LIKE '%" + req.body.text + "%' OR zqu__Number__c LIKE '%" + req.body.text + "%' LIMIT 5";
+        q = "SELECT Id, Name, zqu__Number__c, zqu__ApprovalStatus__c, CreatedBy.Name, CreatedBy.Id FROM zqu__Quote__c WHERE Name LIKE '%" + req.body.text + "%' OR zqu__Number__c LIKE '%" + req.body.text + "%' LIMIT 5";
 
     force.query(oauthObj, q)
         .then(data => {
@@ -28,7 +28,7 @@ exports.execute = (req, res) => {
                 quotess.forEach(function (quote) {
                     let fields = [];
                     fields.push({title: "Number", value: quote.zqu__Number__c, short: true});
-                    fields.push({title: "Status", value: quote.zqu__Status__c, short: true});
+                    fields.push({title: "Approval Status", value: quote.zqu__ApprovalStatus__c, short: true});
 
 
 
