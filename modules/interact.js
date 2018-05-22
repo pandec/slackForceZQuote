@@ -20,6 +20,9 @@ exports.execute = (req, res) => {
 
     var responseName = actionJSONPayload.actions[0].name;
     var quoteId = actionJSONPayload.actions[0].value;
+    let originalMessage = actionJSONPayload.original_message;
+    console.log('bdec // originalMessage: ' + originalMessage);
+    console.log('bdec // JSON.stringify(originalMessage): ' + JSON.stringify(originalMessage));
 
     let pathProcess = 'Quote/Approve?recordId=' + quoteId + '&step=';
 
@@ -49,10 +52,6 @@ exports.execute = (req, res) => {
                 if ((approveResult.success === 'true')) {
                     var textResponse;
 
-                    let original_message = actionJSONPayload.original_message;
-                    original_message.actions = null;
-                    original_message.replace_original = false;
-
                     if (pathProcess.includes('approve')) {
                         textResponse = 'Ok - record approved';
                     } else {
@@ -60,11 +59,23 @@ exports.execute = (req, res) => {
                     }
                     res.json({
                         text: textResponse,
+                        author_name: originalMessage.author_name,
+                        author_link: originalMessage.author_link,
+                        title: originalMessage.title,
+                        title_link: originalMessage.title_link,
+                        color: "#1798c1",
+                        fields: originalMessage.fields,
                         replace_original: false
                     });
                 } else {
                     res.json({
                         text: "Error",
+                        author_name: originalMessage.author_name,
+                        author_link: originalMessage.author_link,
+                        title: originalMessage.title,
+                        title_link: originalMessage.title_link,
+                        color: "#1798c1",
+                        fields: originalMessage.fields,
                         replace_original: false
                     });
                 }
