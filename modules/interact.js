@@ -39,23 +39,36 @@ exports.execute = (req, res) => {
 
         force.apexrest(oauthObj, pathProcess, options)
             .then(data => {
-                console.log('bdec // data: ' + data);
                 console.log('bdec // data: ' + JSON.stringify(data));
-
-                let original_message = actionJSONPayload.original_message;
-                original_message.actions = null;
-                original_message.replace_original = false;
 
                 var approveResult = JSON.parse(data);
                 console.log('bdec // approveResult: ' + approveResult);
 
+                console.log('bdec // (approveResult.success === \'true\'): ' + (approveResult.success === 'true'));
+
                 if ((approveResult.success === 'true')) {
-                    original_message.text += ' [true]'
-                    res.json(original_message);
+                    var textResponse;
+
+                    let original_message = actionJSONPayload.original_message;
+                    original_message.actions = null;
+                    original_message.replace_original = false;
+
+                    if (pathProcess.includes('approve')) {
+                        textResponse = 'Ok - record approved';
+                    } else {
+                        textResponse = 'Ok - record rejected';
+                    }
+                    res.json({
+                        text: textResponse,
+                        replace_original: false
+                    });
                 } else {
-                    original_message.text += ' [false]'
-                    res.json(original_message);
+                    res.json({
+                        text: "Error",
+                        replace_original: false
+                    });
                 }
+
             })
             .catch(error => {
                 if (error.code == 401) {
