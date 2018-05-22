@@ -44,13 +44,17 @@ exports.execute = (req, res) => {
                 console.log('bdec // approveResult: ' + approveResult);
                 console.log('bdec // (approveResult.success === \'true\'): ' + (approveResult.success === 'true'));
 
-                let responsePayload = {color: "#1798c1", replace_original: true, text: 'Error occurred - please, see the record in Salesforce.'};
+                let responsePayload = {
+                    color: "#1798c1",
+                    replace_original: true,
+                    text: 'Error occurred - ' + '<' + oauthObj.instance_url + '/' + quoteId + '|Click here to see the record in Salesforce>'
+                };
 
                 if ((approveResult.success === false)) {
                     if (approveResult.error === 'INSUFFICIENT_ACCESS') {
                         responsePayload.text = 'You are unable to approve this quote.';
                     } else {
-
+                        responsePayload.text += ' | Error code: ' + approveResult.error;
                     }
                 } else {
                     var textResponse;
