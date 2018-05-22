@@ -46,7 +46,7 @@ exports.execute = (req, res) => {
 
                 let responsePayload = {color: "#1798c1", replace_original: true, text: 'Error occurred - please, see the record in Salesforce.'};
 
-                if ((approveResult.success === 'false')) {
+                if ((approveResult.success === false)) {
                     if (approveResult.error === 'INSUFFICIENT_ACCESS') {
                         responsePayload.text = 'You are unable to approve this quote.';
                     } else {
