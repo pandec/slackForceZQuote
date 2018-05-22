@@ -44,20 +44,17 @@ exports.execute = (req, res) => {
 
                 let original_message = actionJSONPayload.original_message;
                 original_message.actions = null;
+                original_message.replace_original = false;
 
                 var approveResult = JSON.parse(data);
                 console.log('bdec // approveResult: ' + approveResult);
 
                 if ((approveResult.success === 'true')) {
-                    res.json({
-                        text: original_message,
-                        replace_original: false
-                    });
+                    original_message.text += ' [true]'
+                    res.json(original_message);
                 } else {
-                    res.json({
-                        text: original_message,
-                        replace_original: false
-                    });
+                    original_message.text += ' [false]'
+                    res.json(original_message);
                 }
             })
             .catch(error => {
