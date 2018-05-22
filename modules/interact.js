@@ -69,24 +69,6 @@ exports.execute = (req, res) => {
                     responsePayload.text = textResponse;
                 }
 
-
-                // if ((approveResult.success === 'true')) {
-                //     var textResponse;
-                //
-                //     if (pathProcess.includes('approve')) {
-                //         textResponse = 'Ok - record approved';
-                //     } else {
-                //         textResponse = 'Ok - record rejected';
-                //     }
-                //     responsePayload.text = textResponse;
-                // } else {
-                //     if (approveResult.error === 'INSUFFICIENT_ACCESS') {
-                //         responsePayload.text = 'You are unable to approve this quote. '
-                //     } else {
-                //
-                //     }
-                // }
-
                 res.json(responsePayload);
 
             })
