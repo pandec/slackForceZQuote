@@ -42,10 +42,17 @@ exports.execute = (req, res) => {
                 var approveResult = JSON.parse(data);
                 console.log('bdec // approveResult: ' + JSON.stringify(data));
                 console.log('bdec // approveResult: ' + approveResult);
-
                 console.log('bdec // (approveResult.success === \'true\'): ' + (approveResult.success === 'true'));
 
-                if ((approveResult.success === 'true')) {
+                let responsePayload = {color: "#1798c1", replace_original: true, text: 'Error occurred - please, see the record in Salesforce.'};
+
+                if ((approveResult.success === 'false')) {
+                    if (approveResult.error === 'INSUFFICIENT_ACCESS') {
+                        responsePayload.text = 'You are unable to approve this quote.';
+                    } else {
+
+                    }
+                } else {
                     var textResponse;
 
                     if (pathProcess.includes('approve')) {
@@ -53,18 +60,28 @@ exports.execute = (req, res) => {
                     } else {
                         textResponse = 'Ok - record rejected';
                     }
-                    res.json({
-                        text: textResponse,
-                        color: "#1798c1",
-                        replace_original: true
-                    });
-                } else {
-                    res.json({
-                        text: "Error, " + approveResult.message,
-                        color: "#1798c1",
-                        replace_original: true
-                    });
+                    responsePayload.text = textResponse;
                 }
+
+
+                // if ((approveResult.success === 'true')) {
+                //     var textResponse;
+                //
+                //     if (pathProcess.includes('approve')) {
+                //         textResponse = 'Ok - record approved';
+                //     } else {
+                //         textResponse = 'Ok - record rejected';
+                //     }
+                //     responsePayload.text = textResponse;
+                // } else {
+                //     if (approveResult.error === 'INSUFFICIENT_ACCESS') {
+                //         responsePayload.text = 'You are unable to approve this quote. '
+                //     } else {
+                //
+                //     }
+                // }
+
+                res.json(responsePayload);
 
             })
             .catch(error => {
